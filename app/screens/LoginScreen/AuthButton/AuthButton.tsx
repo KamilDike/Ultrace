@@ -1,10 +1,10 @@
 import React from 'react';
 import {Text, TouchableOpacity} from 'react-native';
-import {AuthEnum} from '../../../../enums/auth.enum';
+import {AuthEnum} from '../../../enums/auth.enum';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {AuthButtonStyle} from './AuthButtonStyle';
-import {ColorStyles} from '../../../../styles/ColorStyles';
-import {TextStyles} from '../../../../styles/TextStyles';
+import {ColorStyles} from '../../../styles/ColorStyles';
+import {TextStyles} from '../../../styles/TextStyles';
 
 interface AuthButtonProps {
   provider: AuthEnum;

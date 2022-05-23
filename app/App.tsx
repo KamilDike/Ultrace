@@ -10,7 +10,7 @@
 
 import React from 'react';
 import {SafeAreaView} from 'react-native';
-import LoginScreen from './app/screens/LoginScreen/LoginScreen';
+import LoginScreen from './screens/LoginScreen/LoginScreen';
 
 const App = () => {
   return (
