@@ -6,26 +6,24 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {LoginScreenStyle} from './LoginScreenStyle';
+import {LoginScreenStyles} from './LoginScreenStyles';
 import AuthButton from './AuthButton/AuthButton';
 import {AuthEnum} from '../../enums/auth.enum';
 import {ContainerStyles} from '../../styles/ContainerStyles';
-import {isAndroid} from '../../hooks/isAndroid';
 import {TextStyles} from '../../styles/TextStyles';
 
 const LoginScreen: React.FC = () => {
   return (
     <ImageBackground
       source={require('../../assets/loginBackground.jpg')}
-      style={LoginScreenStyle.backgroundImage}>
+      style={LoginScreenStyles.backgroundImage}>
       <SafeAreaView style={ContainerStyles.center}>
-        <View style={LoginScreenStyle.appNameContainer}>
-          <Text style={LoginScreenStyle.appNameText}>Ultrace</Text>
+        <View style={LoginScreenStyles.appNameContainer}>
+          <Text style={LoginScreenStyles.appNameText}>Ultrace</Text>
         </View>
-        <View style={LoginScreenStyle.buttonsContainer}>
-          <AuthButton
-            provider={isAndroid() ? AuthEnum.GOOGLE : AuthEnum.APPLE}
-          />
+        <View style={LoginScreenStyles.buttonsContainer}>
+          <AuthButton provider={AuthEnum.GOOGLE} />
+          <AuthButton provider={AuthEnum.APPLE} />
           <TouchableOpacity>
             <Text style={[TextStyles.title, TextStyles.whiteColor]}>
               Continue as guest

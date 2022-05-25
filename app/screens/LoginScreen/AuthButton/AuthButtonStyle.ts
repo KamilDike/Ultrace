@@ -5,6 +5,7 @@ export const AuthButtonStyle = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
+    width: '70%',
     backgroundColor: 'white',
     borderRadius: 20,
     paddingVertical: 5,

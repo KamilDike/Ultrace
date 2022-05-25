@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "292489887787",
+    "project_id": "ultrace-4dc86",
+    "storage_bucket": "ultrace-4dc86.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:292489887787:android:954d58cb2caf3c479bea6e",
+        "android_client_info": {
+          "package_name": "com.ultrace"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "292489887787-pdcfhkfaj455iku8r6n590b31lft968v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ultrace",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "292489887787-63o09jc9c5ljjbcnhna3it3npho58bl9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgdfAkLjtKjMVe8UfM5v-bs1RnAEUCq5w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "292489887787-63o09jc9c5ljjbcnhna3it3npho58bl9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "292489887787-103f9pgpkfpd3ok26sar2ao3fr22nk7k.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ultrace"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
