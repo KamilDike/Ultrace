@@ -1,14 +1,14 @@
 import React from 'react';
 import {Text, TouchableOpacity} from 'react-native';
-import {AuthEnum} from '../../../enums/auth.enum';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import {SocialLogoEnum} from '../../../enums/auth.enum';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import {AuthButtonStyle} from './AuthButtonStyle';
 import {ColorStyles} from '../../../styles/ColorStyles';
 import {TextStyles} from '../../../styles/TextStyles';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 interface AuthButtonProps {
-  provider: AuthEnum;
+  provider: SocialLogoEnum;
 }
 
 const AuthButton: React.FC<AuthButtonProps> = ({provider}) => {
@@ -16,8 +16,8 @@ const AuthButton: React.FC<AuthButtonProps> = ({provider}) => {
     <TouchableOpacity
       style={AuthButtonStyle.container}
       onPress={() => GoogleSignin.signIn().then(console.log)}>
-      <Icon
-        name={provider.toLowerCase()}
+      <Ionicons
+        name={`logo-${provider.toLowerCase()}`}
         size={25}
         color={ColorStyles.dark}
         style={AuthButtonStyle.providerIconStyle}

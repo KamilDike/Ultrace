@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import {LoginScreenStyles} from './LoginScreenStyles';
 import AuthButton from './AuthButton/AuthButton';
-import {AuthEnum} from '../../enums/auth.enum';
+import {SocialLogoEnum} from '../../enums/auth.enum';
 import {ContainerStyles} from '../../styles/ContainerStyles';
 import {TextStyles} from '../../styles/TextStyles';
 
@@ -22,8 +22,8 @@ const LoginScreen: React.FC = () => {
           <Text style={LoginScreenStyles.appNameText}>Ultrace</Text>
         </View>
         <View style={LoginScreenStyles.buttonsContainer}>
-          <AuthButton provider={AuthEnum.GOOGLE} />
-          <AuthButton provider={AuthEnum.APPLE} />
+          <AuthButton provider={SocialLogoEnum.GOOGLE} />
+          <AuthButton provider={SocialLogoEnum.APPLE} />
           <TouchableOpacity>
             <Text style={[TextStyles.title, TextStyles.whiteColor]}>
               Continue as guest

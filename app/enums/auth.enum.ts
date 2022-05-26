@@ -1,4 +1,4 @@
-export enum AuthEnum {
+export enum SocialLogoEnum {
   GOOGLE = 'Google',
   APPLE = 'Apple',
 }
