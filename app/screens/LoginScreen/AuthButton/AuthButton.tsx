@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {AuthButtonStyle} from './AuthButtonStyle';
 import {ColorStyles} from '../../../styles/ColorStyles';
 import {TextStyles} from '../../../styles/TextStyles';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 interface AuthButtonProps {
   provider: AuthEnum;
@@ -12,7 +13,9 @@ interface AuthButtonProps {
 
 const AuthButton: React.FC<AuthButtonProps> = ({provider}) => {
   return (
-    <TouchableOpacity style={AuthButtonStyle.container}>
+    <TouchableOpacity
+      style={AuthButtonStyle.container}
+      onPress={() => GoogleSignin.signIn().then(console.log)}>
       <Icon
         name={provider.toLowerCase()}
         size={25}
