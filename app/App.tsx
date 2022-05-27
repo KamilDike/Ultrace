@@ -9,17 +9,24 @@
  */
 
 import React from 'react';
-import {SafeAreaView} from 'react-native';
-import LoginScreen from './screens/LoginScreen/LoginScreen';
 import Icons from 'react-native-vector-icons/Ionicons';
+import {NavigationContainer} from '@react-navigation/native';
+import LoadingScreen from './screens/LoadingScreen';
+import HomeStack from './navigation/HomeStack/HomeStack';
+import LoginStack from './navigation/LoginStack/LoginStack';
 
 Icons.loadFont();
 
 const App = () => {
+  const isLoading = false;
+  const isLogged = false;
+
+  if (isLoading) return <LoadingScreen />;
+
   return (
-    <SafeAreaView>
-      <LoginScreen />
-    </SafeAreaView>
+    <NavigationContainer>
+      {isLogged ? <HomeStack /> : <LoginStack />}
+    </NavigationContainer>
   );
 };
 
