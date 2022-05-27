@@ -4,17 +4,17 @@ import {ColorStyles} from './ColorStyles';
 export const TextStyles = StyleSheet.create({
   header: {
     color: ColorStyles.dark,
-    fontSize: 20,
+    fontSize: 20
   },
   title: {
     color: ColorStyles.dark,
-    fontSize: 16,
+    fontSize: 16
   },
   subtitle: {
     color: ColorStyles.dark,
-    fontSize: 12,
+    fontSize: 12
   },
   whiteColor: {
-    color: 'white',
-  },
+    color: 'white'
+  }
 });

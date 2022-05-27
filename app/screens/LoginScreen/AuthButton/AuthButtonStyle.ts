@@ -10,9 +10,9 @@ export const AuthButtonStyle = StyleSheet.create({
     borderRadius: 20,
     paddingVertical: 5,
     paddingHorizontal: 20,
-    marginBottom: 10,
+    marginBottom: 10
   },
   providerIconStyle: {
-    marginRight: 15,
-  },
+    marginRight: 15
+  }
 });

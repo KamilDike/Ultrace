@@ -4,7 +4,7 @@ import {
   SafeAreaView,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
 import {LoginScreenStyles} from './LoginScreenStyles';
 import AuthButton from './AuthButton/AuthButton';

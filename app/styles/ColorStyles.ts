@@ -1,3 +1,3 @@
 export const ColorStyles = {
-  dark: '#183253',
+  dark: '#183253'
 };

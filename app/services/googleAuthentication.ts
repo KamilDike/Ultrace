@@ -9,6 +9,6 @@ export function googleAuthConfig() {
     forceCodeForRefreshToken: true, // [Android] related to `serverAuthCode`, read the docs link below *.
     iosClientId:
       '197177936798-hr7d6hbdc97tgfj9t42ejuvkdscbgj03.apps.googleusercontent.com', // [iOS] if you want to specify the client ID of type iOS (otherwise, it is taken from GoogleService-Info.plist)
-    profileImageSize: 120, // [iOS] The desired height (and width) of the profile image. Defaults to 120px
+    profileImageSize: 120 // [iOS] The desired height (and width) of the profile image. Defaults to 120px
   });
 }
