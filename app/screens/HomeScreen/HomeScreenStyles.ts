@@ -7,7 +7,8 @@ export const HomeScreenStyles = StyleSheet.create({
     height: 40,
     paddingHorizontal: 10,
     alignItems: 'center',
-    justifyContent: 'space-around'
+    justifyContent: 'center',
+    marginVertical: 5
   },
   flatList: {
     width: '100%'
