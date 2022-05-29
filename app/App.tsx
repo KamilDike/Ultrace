@@ -19,7 +19,7 @@ Icons.loadFont();
 
 const App = () => {
   const isLoading = false;
-  const isLogged = false;
+  const isLogged = true;
 
   if (isLoading) return <LoadingScreen />;
 

@@ -3,5 +3,6 @@ export enum LoginScreenEnum {
 }
 
 export enum HomeScreenEnum {
-  HOME = 'Home'
+  HOME = 'Home',
+  PROFILE = 'Profile'
 }
