@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
-import {Image, Text, TouchableOpacity, View} from 'react-native';
+import {Image, Modal, Text, TouchableOpacity, View} from 'react-native';
 import {PostsGridStyles, SwitchPageContainer} from './PostsGridStyles';
 import {IPost} from '../../../interfaces/IPost';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {ContainerStyles} from '../../../styles/ContainerStyles';
+import AddPostForm from '../../../components/AddPostForm/AddPostForm';
 
 interface PostsGridInterface {
   uris: Array<IPost>;
@@ -11,6 +12,7 @@ interface PostsGridInterface {
 
 const PostsGrid = ({uris}: PostsGridInterface) => {
   const [page, setPage] = useState(0);
+  const [isAddPostVisible, setIsAddPostVisible] = useState(false);
 
   const currentUrisIndex = 8 * page;
   const urisLength = page ? 9 : 8;
@@ -25,9 +27,14 @@ const PostsGrid = ({uris}: PostsGridInterface) => {
 
   return (
     <View>
+      <Modal visible={isAddPostVisible} transparent={true}>
+        <AddPostForm exit={() => setIsAddPostVisible(false)} />
+      </Modal>
       <View style={[PostsGridStyles.container, ContainerStyles.basicShadow]}>
         {page === 0 && (
-          <TouchableOpacity style={PostsGridStyles.postContainer}>
+          <TouchableOpacity
+            style={PostsGridStyles.postContainer}
+            onPress={() => setIsAddPostVisible(true)}>
             <Ionicons name="add" size={30} />
             <Text>Add Post</Text>
           </TouchableOpacity>
