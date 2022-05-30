@@ -14,5 +14,13 @@ export const ContainerStyles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5
+  },
+  modal: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  horizontal: {
+    flexDirection: 'row'
   }
 });

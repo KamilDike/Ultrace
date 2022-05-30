@@ -16,5 +16,8 @@ export const TextStyles = StyleSheet.create({
   },
   whiteColor: {
     color: 'white'
+  },
+  bold: {
+    fontWeight: 'bold'
   }
 });
