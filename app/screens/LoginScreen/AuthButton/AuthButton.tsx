@@ -5,7 +5,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {AuthButtonStyle} from './AuthButtonStyle';
 import {ColorStyles} from '../../../styles/ColorStyles';
 import {TextStyles} from '../../../styles/TextStyles';
-import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import {onGoogleButtonPress} from '../../../services/firebaseSignIn';
 
 interface AuthButtonProps {
   provider: SocialLogoEnum;
@@ -15,7 +15,7 @@ const AuthButton: React.FC<AuthButtonProps> = ({provider}) => {
   return (
     <TouchableOpacity
       style={AuthButtonStyle.container}
-      onPress={() => GoogleSignin.signIn().then(console.log)}>
+      onPress={onGoogleButtonPress}>
       <Ionicons
         name={`logo-${provider.toLowerCase()}`}
         size={25}

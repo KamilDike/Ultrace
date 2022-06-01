@@ -8,24 +8,29 @@
  * @format
  */
 
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Icons from 'react-native-vector-icons/Ionicons';
 import {NavigationContainer} from '@react-navigation/native';
 import LoadingScreen from './screens/LoadingScreen';
 import HomeStack from './navigation/HomeStack/HomeStack';
 import LoginStack from './navigation/LoginStack/LoginStack';
+import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 
 Icons.loadFont();
 
 const App = () => {
   const isLoading = false;
-  const isLogged = true;
+  const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
+
+  useEffect(() => {
+    return auth().onAuthStateChanged(setUser);
+  }, []);
 
   if (isLoading) return <LoadingScreen />;
 
   return (
     <NavigationContainer>
-      {isLogged ? <HomeStack /> : <LoginStack />}
+      {user ? <HomeStack /> : <LoginStack />}
     </NavigationContainer>
   );
 };
