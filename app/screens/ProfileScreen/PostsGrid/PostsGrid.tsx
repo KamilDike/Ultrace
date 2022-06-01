@@ -5,6 +5,7 @@ import {IPost} from '../../../interfaces/IPost';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {ContainerStyles} from '../../../styles/ContainerStyles';
 import AddPostForm from '../../../components/AddPostForm/AddPostForm';
+import {selectImage} from '../../../hooks/selectImage';
 
 interface PostsGridInterface {
   uris: Array<IPost>;
@@ -34,7 +35,11 @@ const PostsGrid = ({uris}: PostsGridInterface) => {
         {page === 0 && (
           <TouchableOpacity
             style={PostsGridStyles.postContainer}
-            onPress={() => setIsAddPostVisible(true)}>
+            onPress={() => {
+              selectImage().then(image =>
+                image?.assets ? setIsAddPostVisible(true) : null
+              );
+            }}>
             <Ionicons name="add" size={30} />
             <Text>Add Post</Text>
           </TouchableOpacity>
