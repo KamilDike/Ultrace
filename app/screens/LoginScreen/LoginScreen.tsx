@@ -11,6 +11,7 @@ import AuthButton from './AuthButton/AuthButton';
 import {SocialLogoEnum} from '../../enums/auth.enum';
 import {ContainerStyles} from '../../styles/ContainerStyles';
 import {TextStyles} from '../../styles/TextStyles';
+import auth from '@react-native-firebase/auth';
 
 const LoginScreen: React.FC = () => {
   return (
@@ -24,7 +25,7 @@ const LoginScreen: React.FC = () => {
         <View style={LoginScreenStyles.buttonsContainer}>
           <AuthButton provider={SocialLogoEnum.GOOGLE} />
           <AuthButton provider={SocialLogoEnum.APPLE} />
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => auth().signInAnonymously()}>
             <Text style={[TextStyles.title, TextStyles.whiteColor]}>
               Continue as guest
             </Text>
