@@ -7,12 +7,18 @@ import {mockUris} from '../../DataMock';
 import {ProfileScreenStyles} from './ProfileScreenStyles';
 import Settings from './Settings/Settings';
 import {selectImage} from '../../hooks/selectImage';
+import {storageUpload} from '../../hooks/storageUpload';
 
 const ProfileScreen = () => {
   return (
     <View style={ContainerStyles.center}>
       <View style={ProfileScreenStyles.profileScreenHeader}>
-        <TouchableOpacity onPress={() => selectImage()}>
+        <TouchableOpacity
+          onPress={() =>
+            selectImage()
+              .then(({uri}) => storageUpload(uri))
+              .catch(console.log)
+          }>
           <UserPicture size={120} />
         </TouchableOpacity>
         <Text>username</Text>

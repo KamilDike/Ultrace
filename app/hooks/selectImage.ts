@@ -1,5 +1,8 @@
 import {launchImageLibrary} from 'react-native-image-picker';
 
-export function selectImage() {
-  return launchImageLibrary({mediaType: 'photo'});
+export async function selectImage() {
+  const image = await launchImageLibrary({mediaType: 'photo'});
+  if (image?.assets?.length) return image.assets[0];
+
+  throw "Couldn't load image";
 }

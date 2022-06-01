@@ -36,9 +36,7 @@ const PostsGrid = ({uris}: PostsGridInterface) => {
           <TouchableOpacity
             style={PostsGridStyles.postContainer}
             onPress={() => {
-              selectImage().then(image =>
-                image?.assets ? setIsAddPostVisible(true) : null
-              );
+              selectImage().then(() => setIsAddPostVisible(true));
             }}>
             <Ionicons name="add" size={30} />
             <Text>Add Post</Text>
