@@ -5,5 +5,10 @@ export const ProfileScreenStyles = StyleSheet.create({
     height: '30%',
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  profilePictureLoading: {
+    width: 120,
+    height: 120,
+    borderRadius: 60
   }
 });
