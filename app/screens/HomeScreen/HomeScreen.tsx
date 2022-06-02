@@ -8,6 +8,7 @@ import UserPicture from '../../components/UserPicture/UserPicture';
 import {mockUris} from '../../DataMock';
 import {useNavigation} from '@react-navigation/native';
 import {HomeScreenEnum} from '../../enums/navigation/ScreenEnum';
+import auth from '@react-native-firebase/auth';
 
 type homeScreenNavigationProp = {
   navigate: (value: HomeScreenEnum.PROFILE) => void;
@@ -20,7 +21,12 @@ const HomeScreen = () => {
     <SafeAreaView style={ContainerStyles.center}>
       <View style={HomeScreenStyles.header}>
         <SearchBar />
-        <TouchableOpacity onPress={() => navigate(HomeScreenEnum.PROFILE)}>
+        <TouchableOpacity
+          onPress={() => {
+            auth().currentUser?.isAnonymous
+              ? auth().signOut()
+              : navigate(HomeScreenEnum.PROFILE);
+          }}>
           <UserPicture size={40} />
         </TouchableOpacity>
       </View>
