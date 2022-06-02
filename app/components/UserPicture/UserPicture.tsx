@@ -4,7 +4,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {UserPictureImageStyles, UserPictureStyles} from './UserPictureStyles';
 
 interface UserPictureProps {
-  uri?: string | undefined;
+  uri?: string | undefined | null;
   size: number;
 }
 

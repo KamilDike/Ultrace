@@ -11,6 +11,7 @@ export const UserPictureImageStyles = (size: number) =>
   StyleSheet.create({
     container: {
       width: size,
-      height: size
+      height: size,
+      borderRadius: size / 2
     }
   });
