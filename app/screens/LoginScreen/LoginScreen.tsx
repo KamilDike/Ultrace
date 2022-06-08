@@ -8,10 +8,10 @@ import {
 } from 'react-native';
 import {LoginScreenStyles} from './LoginScreenStyles';
 import AuthButton from './AuthButton/AuthButton';
-import {SocialLogoEnum} from '../../enums/auth.enum';
 import {ContainerStyles} from '../../styles/ContainerStyles';
 import {TextStyles} from '../../styles/TextStyles';
 import auth from '@react-native-firebase/auth';
+import {SocialLogoEnum} from '../../enums/AuthEnum';
 
 const LoginScreen: React.FC = () => {
   return (

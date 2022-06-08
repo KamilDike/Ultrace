@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import {Text, TouchableOpacity} from 'react-native';
-import {SocialLogoEnum} from '../../../enums/auth.enum';
+import {SocialLogoEnum} from '../../../enums/AuthEnum';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {AuthButtonStyle} from './AuthButtonStyle';
 import {ColorStyles} from '../../../styles/ColorStyles';

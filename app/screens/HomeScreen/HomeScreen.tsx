@@ -1,14 +1,15 @@
-import React from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {FlatList, SafeAreaView, TouchableOpacity, View} from 'react-native';
 import Post from '../../components/Post/Post';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import {ContainerStyles} from '../../styles/ContainerStyles';
 import {HomeScreenStyles} from './HomeScreenStyles';
 import UserPicture from '../../components/UserPicture/UserPicture';
-import {mockUris} from '../../DataMock';
 import {useNavigation} from '@react-navigation/native';
 import {HomeScreenEnum} from '../../enums/navigation/ScreenEnum';
 import auth from '@react-native-firebase/auth';
+import {getPosts} from '../../services/api/PostsAPI';
+import {IPost} from '../../interfaces/IPost';
 
 type homeScreenNavigationProp = {
   navigate: (value: HomeScreenEnum.PROFILE) => void;
@@ -16,11 +17,25 @@ type homeScreenNavigationProp = {
 
 const HomeScreen = () => {
   const {navigate} = useNavigation<homeScreenNavigationProp>();
+  const [searchValue, setSearchValue] = useState('');
+  const [posts, setPosts] = useState<Array<IPost>>([]);
+  const [isRefreshing, setIsRefreshing] = useState(true);
+
+  const refresh = useCallback(() => {
+    getPosts(searchValue).then(refreshedPosts => {
+      setPosts(refreshedPosts);
+      setTimeout(() => setIsRefreshing(false), 2000);
+    });
+  }, [searchValue]);
+
+  useEffect(() => {
+    refresh();
+  }, [searchValue, refresh]);
 
   return (
     <SafeAreaView style={ContainerStyles.center}>
       <View style={HomeScreenStyles.header}>
-        <SearchBar />
+        <SearchBar search={setSearchValue} />
         <TouchableOpacity
           onPress={() => {
             auth().currentUser?.isAnonymous
@@ -31,9 +46,12 @@ const HomeScreen = () => {
         </TouchableOpacity>
       </View>
       <FlatList
-        data={mockUris}
+        data={posts}
         style={HomeScreenStyles.flatList}
-        renderItem={({item}) => <Post uri={item.uri} />}
+        renderItem={({item}) => <Post post={item} />}
+        refreshing={isRefreshing}
+        onRefresh={refresh}
+        removeClippedSubviews={true}
       />
     </SafeAreaView>
   );

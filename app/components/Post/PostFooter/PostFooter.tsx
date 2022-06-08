@@ -1,18 +1,41 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Text, View} from 'react-native';
 import {PostFooterStyles} from './PostFooterStyles';
 import {ColorStyles} from '../../../styles/ColorStyles';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {IPost} from '../../../interfaces/IPost';
+import {dislikePost, likePost} from '../../../services/api/PostsAPI';
+import auth from '@react-native-firebase/auth';
 
-const PostFooter = () => {
+interface PostFooterProps {
+  post: IPost;
+}
+
+const PostFooter = ({post}: PostFooterProps) => {
+  const {likes} = post;
+  const [isLiked, setIsLiked] = useState<boolean>(
+    likes.includes(auth().currentUser?.uid || '')
+  );
+
   return (
     <View style={PostFooterStyles.container}>
-      <Ionicons
-        name="heart-outline"
-        size={25}
-        color={ColorStyles.dark}
-        style={PostFooterStyles.likeIcon}
-      />
+      {isLiked ? (
+        <Ionicons
+          name="heart-circle-outline"
+          size={25}
+          color={ColorStyles.dark}
+          style={PostFooterStyles.likeIcon}
+          onPress={() => dislikePost(post.id).then(() => setIsLiked(false))}
+        />
+      ) : (
+        <Ionicons
+          name="heart-outline"
+          size={25}
+          color={ColorStyles.dark}
+          style={PostFooterStyles.likeIcon}
+          onPress={() => likePost(post.id).then(() => setIsLiked(true))}
+        />
+      )}
       <Text style={PostFooterStyles.postDescription}>E30 330I White</Text>
     </View>
   );

@@ -9,9 +9,14 @@ import {
 } from 'react-native';
 import {TagInputStyles} from './TagInputStyles';
 import {TextStyles} from '../../styles/TextStyles';
+import {ContainerStyles} from '../../styles/ContainerStyles';
 
-const TagInput = () => {
-  const [tags, setTags] = useState<Set<string>>(new Set(['test']));
+interface TagInputProps {
+  tags: Set<string>;
+  setTags: React.Dispatch<Set<string>>;
+}
+
+const TagInput = ({tags, setTags}: TagInputProps) => {
   const [isInputActive, setIsInputActive] = useState(false);
 
   return (
@@ -32,25 +37,31 @@ const TagInput = () => {
         <TouchableOpacity
           style={TagInputStyles.tagsTextContainer}
           activeOpacity={1}>
-          <ScrollView showsVerticalScrollIndicator={false}>
-            <Text>
-              {[...tags].map(tag => (
-                <TouchableOpacity
-                  key={tag}
-                  onPress={() => {
-                    const newTags = new Set(tags);
-                    newTags.delete(tag);
-                    setTags(newTags);
-                  }}>
-                  <Text>[{tag}] </Text>
-                </TouchableOpacity>
-              ))}
-            </Text>
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={ContainerStyles.center}>
+            {tags.size ? (
+              <Text>
+                {[...tags].map(tag => (
+                  <TouchableOpacity
+                    key={tag}
+                    onPress={() => {
+                      const newTags = new Set(tags);
+                      newTags.delete(tag);
+                      setTags(newTags);
+                    }}>
+                    <Text>[{tag}] </Text>
+                  </TouchableOpacity>
+                ))}
+              </Text>
+            ) : (
+              <Text>No tags yet</Text>
+            )}
           </ScrollView>
         </TouchableOpacity>
       )}
       <TouchableOpacity
-        style={TagInputStyles.button}
+        style={[TagInputStyles.button, TagInputStyles.buttonFull]}
         onPress={() => setIsInputActive(true)}>
         <Text style={TextStyles.bold}>Add Tag</Text>
       </TouchableOpacity>

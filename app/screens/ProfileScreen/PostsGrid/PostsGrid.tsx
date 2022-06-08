@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Image, Modal, Text, TouchableOpacity, View} from 'react-native';
+import {Alert, Image, Modal, Text, TouchableOpacity, View} from 'react-native';
 import {PostsGridStyles, SwitchPageContainer} from './PostsGridStyles';
 import {IPost} from '../../../interfaces/IPost';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -8,36 +8,39 @@ import AddPostForm from '../../../components/AddPostForm/AddPostForm';
 import {selectImage} from '../../../hooks/selectImage';
 
 interface PostsGridInterface {
-  uris: Array<IPost>;
+  posts: Array<IPost>;
 }
 
-const PostsGrid = ({uris}: PostsGridInterface) => {
+const PostsGrid = ({posts}: PostsGridInterface) => {
   const [page, setPage] = useState(0);
-  const [isAddPostVisible, setIsAddPostVisible] = useState(false);
+  const [postUri, setPostUri] = useState<string>();
 
   const currentUrisIndex = 8 * page;
   const urisLength = page ? 9 : 8;
-  const currentUris = uris.slice(
+  const currentUris = posts.slice(
     currentUrisIndex,
     currentUrisIndex + urisLength
   );
   const [backPageButtonActive, forwardPageButtonActive] = [
     page > 0,
-    currentUrisIndex + urisLength < uris.length
+    currentUrisIndex + urisLength < posts.length
   ];
 
   return (
     <View>
-      <Modal visible={isAddPostVisible} transparent={true}>
-        <AddPostForm exit={() => setIsAddPostVisible(false)} />
+      <Modal visible={!!postUri} transparent={true}>
+        <AddPostForm exit={() => setPostUri(undefined)} postUri={postUri!} />
       </Modal>
+
       <View style={[PostsGridStyles.container, ContainerStyles.basicShadow]}>
         {page === 0 && (
           <TouchableOpacity
             style={PostsGridStyles.postContainer}
-            onPress={() => {
-              selectImage().then(() => setIsAddPostVisible(true));
-            }}>
+            onPress={() =>
+              selectImage()
+                .then(({uri}) => setPostUri(uri))
+                .catch(() => Alert.alert("Ups, couldn't load photo"))
+            }>
             <Ionicons name="add" size={30} />
             <Text>Add Post</Text>
           </TouchableOpacity>
@@ -51,16 +54,14 @@ const PostsGrid = ({uris}: PostsGridInterface) => {
       <View style={PostsGridStyles.footer}>
         <TouchableOpacity
           style={SwitchPageContainer(backPageButtonActive).container}
-          onPress={() => {
-            if (backPageButtonActive) setPage(page - 1);
-          }}>
+          onPress={() => setPage(page - 1)}
+          disabled={!backPageButtonActive}>
           <Ionicons name="chevron-back" size={30} />
         </TouchableOpacity>
         <TouchableOpacity
           style={SwitchPageContainer(forwardPageButtonActive).container}
-          onPress={() => {
-            if (forwardPageButtonActive) setPage(page + 1);
-          }}>
+          onPress={() => setPage(page + 1)}
+          disabled={!forwardPageButtonActive}>
           <Ionicons name="chevron-forward" size={30} />
         </TouchableOpacity>
       </View>

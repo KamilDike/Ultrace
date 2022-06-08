@@ -26,6 +26,8 @@ export const ContainerStyles = StyleSheet.create({
     justifyContent: 'center'
   },
   horizontal: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    marginTop: 'auto',
+    flex: 1
   }
 });

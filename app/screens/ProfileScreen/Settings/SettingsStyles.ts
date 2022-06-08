@@ -2,9 +2,8 @@ import {StyleSheet} from 'react-native';
 
 export const SettingsStyles = StyleSheet.create({
   container: {
-    padding: 10,
     position: 'absolute',
-    bottom: 20
+    bottom: 40
   },
   modal: {
     alignItems: 'center',

@@ -1,8 +1,20 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Image, Text, View} from 'react-native';
 import {PostHeaderStyles} from './PostHeaderStyles';
+import {getUser} from '../../../services/api/UsersAPI';
+import {IUser} from '../../../interfaces/IUser';
 
-const PostHeader = () => {
+interface PostHeaderProps {
+  ownerUserId: string;
+}
+
+const PostHeader = ({ownerUserId}: PostHeaderProps) => {
+  const [owner, setOwner] = useState<IUser>();
+
+  useEffect(() => {
+    getUser(ownerUserId).then(setOwner);
+  }, [ownerUserId]);
+
   return (
     <View style={PostHeaderStyles.container}>
       <Image

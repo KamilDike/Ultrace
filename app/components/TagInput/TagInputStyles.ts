@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 
 export const TagInputStyles = StyleSheet.create({
   container: {
@@ -18,14 +18,21 @@ export const TagInputStyles = StyleSheet.create({
     paddingHorizontal: 10
   },
   button: {
-    borderRadius: 5,
     borderWidth: 1,
     padding: 5,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 'auto'
   },
-  buttonHalf: {
+  buttonLeft: {
+    borderBottomLeftRadius: 5,
     width: '50%'
+  },
+  buttonRight: {
+    borderBottomRightRadius: 5,
+    width: '50%'
+  },
+  buttonFull: {
+    width: Dimensions.get('window').width * 0.8
   }
 });
