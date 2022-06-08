@@ -2,16 +2,16 @@ import {StyleSheet} from 'react-native';
 
 export const AddPostFormStyles = StyleSheet.create({
   container: {
-    justifyContent: 'space-around',
-    alignItems: 'center',
     backgroundColor: 'white',
     width: '80%',
-    height: 200,
+    height: 80,
     borderWidth: 2,
-    borderRadius: 10
+    borderRadius: 10,
+    justifyContent: 'center'
   },
   input: {
     width: '100%',
+    flex: 1,
     fontSize: 16,
     paddingHorizontal: 10
   }

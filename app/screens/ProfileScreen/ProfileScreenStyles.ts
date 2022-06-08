@@ -6,6 +6,9 @@ export const ProfileScreenStyles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
+  profileNameText: {
+    marginTop: 20
+  },
   profilePictureLoading: {
     width: 120,
     height: 120,
