@@ -19,6 +19,8 @@ import {getPosts} from '../../services/api/PostsAPI';
 import {IPost} from '../../interfaces/IPost';
 import {TextStyles} from '../../styles/TextStyles';
 import {updateProfilePicture} from '../../services/api/UsersAPI';
+import {useSelector} from 'react-redux';
+import {RootState} from '../../redux/store';
 
 const ProfileScreen = () => {
   const profilePictureUri = `users/${auth().currentUser?.uid}/profilePicture`;
@@ -27,6 +29,7 @@ const ProfileScreen = () => {
   >(undefined);
   const [reload, setReload] = useState(false);
   const [posts, setPosts] = useState<Array<IPost>>([]);
+  const {user} = useSelector((state: RootState) => state.user);
 
   useEffect(() => {
     auth().currentUser?.isAnonymous
@@ -71,7 +74,7 @@ const ProfileScreen = () => {
             TextStyles.bold,
             ProfileScreenStyles.profileNameText
           ]}>
-          username
+          {user?.name || 'Ultrace'}
         </Text>
       </View>
       <PostsGrid posts={posts} />
