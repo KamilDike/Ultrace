@@ -1,8 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {Image, Text, View} from 'react-native';
+import {ActivityIndicator, Image, Text, View} from 'react-native';
 import {PostHeaderStyles} from './PostHeaderStyles';
 import {getUser} from '../../../services/api/UsersAPI';
 import {IUser} from '../../../interfaces/IUser';
+import {ContainerStyles} from '../../../styles/ContainerStyles';
+import {ColorStyles} from '../../../styles/ColorStyles';
+import {config} from '../../../config';
 
 interface PostHeaderProps {
   ownerUserId: string;
@@ -17,13 +20,19 @@ const PostHeader = ({ownerUserId}: PostHeaderProps) => {
 
   return (
     <View style={PostHeaderStyles.container}>
-      <Image
-        source={{
-          uri: 'https://secure.gravatar.com/avatar/3490b8a45704289fb6d9e99754c6b1c6?s=32&d=404'
-        }}
-        style={PostHeaderStyles.userPicture}
-      />
-      <Text style={PostHeaderStyles.userName}>Kamil</Text>
+      {owner ? (
+        <View style={ContainerStyles.horizontal}>
+          <Image
+            source={{
+              uri: owner.profilePicture || config.imgFallbackUri
+            }}
+            style={PostHeaderStyles.userPicture}
+          />
+          <Text style={PostHeaderStyles.userName}>{owner.name}</Text>
+        </View>
+      ) : (
+        <ActivityIndicator size="small" color={ColorStyles.dark} />
+      )}
     </View>
   );
 };

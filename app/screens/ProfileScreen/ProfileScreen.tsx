@@ -18,31 +18,47 @@ import storage from '@react-native-firebase/storage';
 import {getPosts} from '../../services/api/PostsAPI';
 import {IPost} from '../../interfaces/IPost';
 import {TextStyles} from '../../styles/TextStyles';
-import {updateProfilePicture} from '../../services/api/UsersAPI';
-import {useSelector} from 'react-redux';
-import {RootState} from '../../redux/store';
+import {getUser, updateProfilePicture} from '../../services/api/UsersAPI';
+import {IUser} from '../../interfaces/IUser';
 
-const ProfileScreen = () => {
+interface ProfileScreenProps {
+  route: {
+    params: {
+      userId: string;
+    };
+  };
+}
+
+const ProfileScreen = ({
+  route: {
+    params: {userId}
+  }
+}: ProfileScreenProps) => {
   const profilePictureUri = `users/${auth().currentUser?.uid}/profilePicture`;
   const [profilePicture, setProfilePicture] = useState<
     undefined | null | string
   >(undefined);
   const [reload, setReload] = useState(false);
   const [posts, setPosts] = useState<Array<IPost>>([]);
-  const {user} = useSelector((state: RootState) => state.user);
+  const [user, setUser] = useState<IUser>();
 
   useEffect(() => {
-    auth().currentUser?.isAnonymous
-      ? setProfilePicture(null)
-      : storage()
-          .ref(profilePictureUri)
-          .getDownloadURL()
-          .then(downloadUrl => {
-            setProfilePicture(downloadUrl);
-          })
-          .catch(() => setProfilePicture(null));
-    getPosts('', true).then(setPosts);
-  }, [profilePictureUri, reload]);
+    storage()
+      .ref(profilePictureUri)
+      .getDownloadURL()
+      .then(downloadUrl => {
+        setProfilePicture(downloadUrl);
+      })
+      .catch(() => setProfilePicture(null));
+    (async () => {
+      const [newPosts, newUser] = await Promise.all([
+        getPosts('', true),
+        getUser(userId)
+      ]);
+      setPosts(newPosts);
+      setUser(newUser);
+    })();
+  }, [profilePictureUri, reload, userId]);
 
   return (
     <View style={ContainerStyles.center}>
@@ -57,11 +73,18 @@ const ProfileScreen = () => {
               selectImage()
                 .then(({uri}) => {
                   setProfilePicture(undefined);
-                  storageUpload(profilePictureUri, uri)?.then(() => {
-                    updateProfilePicture(profilePictureUri).then(() =>
-                      setReload(!reload)
-                    );
-                  });
+                  storageUpload(profilePictureUri, uri)?.then(
+                    ({metadata: {fullPath}}) => {
+                      storage()
+                        .ref(fullPath)
+                        .getDownloadURL()
+                        .then(profilePictureLink => {
+                          updateProfilePicture(profilePictureLink).then(() =>
+                            setReload(!reload)
+                          );
+                        });
+                    }
+                  );
                 })
                 .catch(error => Alert.alert(error))
             }>

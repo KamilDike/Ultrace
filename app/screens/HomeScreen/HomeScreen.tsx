@@ -11,8 +11,11 @@ import auth from '@react-native-firebase/auth';
 import {getPosts} from '../../services/api/PostsAPI';
 import {IPost} from '../../interfaces/IPost';
 
+type userIdType = {
+  userId: string;
+};
 type homeScreenNavigationProp = {
-  navigate: (value: HomeScreenEnum.PROFILE) => void;
+  navigate: (value: HomeScreenEnum.PROFILE, {userId}: userIdType) => void;
 };
 
 const HomeScreen = () => {
@@ -40,7 +43,9 @@ const HomeScreen = () => {
           onPress={() => {
             auth().currentUser?.isAnonymous
               ? auth().signOut()
-              : navigate(HomeScreenEnum.PROFILE);
+              : navigate(HomeScreenEnum.PROFILE, {
+                  userId: auth().currentUser!.uid
+                });
           }}>
           <UserPicture size={40} />
         </TouchableOpacity>

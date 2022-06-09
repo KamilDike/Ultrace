@@ -12,7 +12,7 @@ interface PostFooterProps {
 }
 
 const PostFooter = ({post}: PostFooterProps) => {
-  const {likes} = post;
+  const {likes, name} = post;
   const [isLiked, setIsLiked] = useState<boolean>(
     likes.includes(auth().currentUser?.uid || '')
   );
@@ -36,7 +36,7 @@ const PostFooter = ({post}: PostFooterProps) => {
           onPress={() => likePost(post.id).then(() => setIsLiked(true))}
         />
       )}
-      <Text style={PostFooterStyles.postDescription}>E30 330I White</Text>
+      <Text style={PostFooterStyles.postDescription}>{name}</Text>
     </View>
   );
 };
