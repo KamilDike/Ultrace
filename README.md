@@ -18,3 +18,4 @@ Disclaimer - project is in concept phase
 - [ ] Fullscreen photo component
 - [ ] Post deletion
 - [ ] Minimum photo quality storage rule
+- [ ] Master branch CI
