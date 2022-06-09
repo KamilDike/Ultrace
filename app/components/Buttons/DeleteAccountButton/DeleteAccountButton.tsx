@@ -1,6 +1,8 @@
 import React from 'react';
 import {Alert, Text, TouchableOpacity} from 'react-native';
 import {ButtonsStyles} from '../ButtonsStyles';
+import {deleteUser} from '../../../services/api/UsersAPI';
+import auth from '@react-native-firebase/auth';
 
 const DeleteAccountButton = () => {
   return (
@@ -10,7 +12,10 @@ const DeleteAccountButton = () => {
         onPress={() =>
           Alert.alert('Confirmation', 'Do you want to delete account?', [
             {text: 'No'},
-            {text: 'Yes'}
+            {
+              text: 'Yes',
+              onPress: () => deleteUser().then(() => auth().signOut())
+            }
           ])
         }>
         Delete account

@@ -11,6 +11,13 @@ export async function getUser(userId: string) {
   return userRef.data() as IUser;
 }
 
+export function deleteUser() {
+  return firestore()
+    .collection(FirestoreEnum.USERS)
+    .doc(auth().currentUser?.uid)
+    .delete();
+}
+
 export function updateProfilePicture(profilePicture: string) {
   return firestore()
     .collection(FirestoreEnum.USERS)
