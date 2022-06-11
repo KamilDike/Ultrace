@@ -1,21 +1,13 @@
 import React, {useState} from 'react';
-import {
-  ActivityIndicator,
-  Alert,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View
-} from 'react-native';
-import {AddPostFormStyles} from './AddPostFormStyles';
-import {ContainerStyles} from '../../styles/ContainerStyles';
-import {TagInputStyles} from '../TagInput/TagInputStyles';
+import {ActivityIndicator, Alert} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {IPost} from '../../interfaces/IPost';
 import storage from '@react-native-firebase/storage';
 import firestore from '@react-native-firebase/firestore';
 import {FirestoreEnum} from '../../enums/FirestoreEnum';
+import Prompt from 'react-native-single-prompt';
 import {ColorStyles} from '../../styles/ColorStyles';
+import {AddPostFormStyles} from './AddPostFormStyles';
 
 interface AddPostFormProps {
   exit: () => void;
@@ -23,13 +15,11 @@ interface AddPostFormProps {
 }
 
 const AddPostForm = ({exit, postUri}: AddPostFormProps) => {
-  const [postName, setPostName] = useState<string>('');
-  // const [tags,  setTags] = useState<Set<string>>(new Set());
   const [loading, setLoading] = useState(false);
 
-  async function createPost() {
+  async function createPost(postName: string | undefined) {
     try {
-      if (postName.length < 3) throw 'Post name is too short';
+      if (!postName || postName.length < 3) throw 'Post name is too short';
       setLoading(true);
       const documentRef = firestore().collection(FirestoreEnum.POSTS).doc();
       const storageRef = storage().ref(
@@ -62,35 +52,14 @@ const AddPostForm = ({exit, postUri}: AddPostFormProps) => {
     }
   }
 
-  return (
-    <View style={ContainerStyles.modal}>
-      <View style={AddPostFormStyles.container}>
-        {loading ? (
-          <ActivityIndicator size={'large'} color={ColorStyles.dark} />
-        ) : (
-          <View style={ContainerStyles.center}>
-            <TextInput
-              placeholder="Post name"
-              style={AddPostFormStyles.input}
-              onChangeText={setPostName}
-            />
-            {/*<TagInput tags={tags} setTags={setTags} />*/}
-            <View style={ContainerStyles.horizontal}>
-              <TouchableOpacity
-                style={[TagInputStyles.button, TagInputStyles.buttonLeft]}
-                onPress={exit}>
-                <Text>Cancel</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[TagInputStyles.button, TagInputStyles.buttonRight]}
-                onPress={createPost}>
-                <Text>Add post</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        )}
-      </View>
-    </View>
+  return loading ? (
+    <ActivityIndicator
+      size={'large'}
+      color={ColorStyles.dark}
+      style={AddPostFormStyles.loadingContainer}
+    />
+  ) : (
+    <Prompt name="Post name" exit={exit} callback={createPost} />
   );
 };
 

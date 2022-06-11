@@ -6282,6 +6282,11 @@ react-native-screens@^3.13.1:
     react-freeze "^1.0.0"
     warn-once "^0.1.0"
 
+react-native-single-prompt@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-single-prompt/-/react-native-single-prompt-1.0.2.tgz#a668f2e665d5831b2ff9ae875ccf3543af3d444f"
+  integrity sha512-LOzXgy/1cHG/l6hgRjvJ1zZBMzgYGyxpagBO+ydfOb4rJSp6tjFEgCxuMzgqAHl8C8BOvXwAwOV9CGEHM0sdqg==
+
 react-native-vector-icons@^9.1.0:
   version "9.1.0"
   resolved "https://registry.yarnpkg.com/react-native-vector-icons/-/react-native-vector-icons-9.1.0.tgz#52eaa205f5954d567b7048eb93d58ac854a2c59e"
