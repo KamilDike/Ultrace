@@ -2,12 +2,12 @@ import {StyleSheet} from 'react-native';
 
 export const ProfileScreenStyles = StyleSheet.create({
   profileScreenHeader: {
-    height: '30%',
+    flex: 3,
     alignItems: 'center',
     justifyContent: 'center'
   },
   profileNameText: {
-    marginTop: 20
+    paddingTop: 10
   },
   profilePictureLoading: {
     width: 120,

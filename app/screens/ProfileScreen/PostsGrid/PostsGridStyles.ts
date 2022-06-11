@@ -4,6 +4,9 @@ const size = Dimensions.get('window').width / 3;
 
 export const PostsGridStyles = StyleSheet.create({
   container: {
+    flex: 7
+  },
+  postsContainer: {
     width: size * 3,
     height: size * 3,
     backgroundColor: 'white',
@@ -18,18 +21,18 @@ export const PostsGridStyles = StyleSheet.create({
   },
   footer: {
     flexDirection: 'row',
+    alignItems: 'flex-start',
+    marginTop: 'auto',
+    height: 65,
     justifyContent: 'space-between',
-    paddingHorizontal: 10
+    paddingHorizontal: 30
   }
 });
 
-export const SwitchPageContainer = (isActive: boolean) =>
-  StyleSheet.create({
-    container: {
-      width: 50,
-      height: 50,
-      justifyContent: 'flex-end',
-      alignItems: 'center',
-      opacity: isActive ? 1 : 0.2
-    }
-  });
+export const buttonOpacity = (isActive: boolean) => {
+  return isActive
+    ? {
+        opacity: 1
+      }
+    : {opacity: 0.5};
+};

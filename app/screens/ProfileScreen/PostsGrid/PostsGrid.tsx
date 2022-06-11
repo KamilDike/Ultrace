@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Alert, Image, Modal, Text, TouchableOpacity, View} from 'react-native';
-import {PostsGridStyles, SwitchPageContainer} from './PostsGridStyles';
+import {buttonOpacity, PostsGridStyles} from './PostsGridStyles';
 import {IPost} from '../../../interfaces/IPost';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {ContainerStyles} from '../../../styles/ContainerStyles';
@@ -27,12 +27,13 @@ const PostsGrid = ({posts}: PostsGridInterface) => {
   ];
 
   return (
-    <View>
+    <View style={PostsGridStyles.container}>
       <Modal visible={!!postUri} transparent={true}>
         <AddPostForm exit={() => setPostUri(undefined)} postUri={postUri!} />
       </Modal>
 
-      <View style={[PostsGridStyles.container, ContainerStyles.basicShadow]}>
+      <View
+        style={[PostsGridStyles.postsContainer, ContainerStyles.basicShadow]}>
         {page === 0 && (
           <TouchableOpacity
             style={PostsGridStyles.postContainer}
@@ -53,15 +54,15 @@ const PostsGrid = ({posts}: PostsGridInterface) => {
       </View>
       <View style={PostsGridStyles.footer}>
         <TouchableOpacity
-          style={SwitchPageContainer(backPageButtonActive).container}
           onPress={() => setPage(page - 1)}
-          disabled={!backPageButtonActive}>
+          disabled={!backPageButtonActive}
+          style={buttonOpacity(backPageButtonActive)}>
           <Ionicons name="chevron-back" size={30} />
         </TouchableOpacity>
         <TouchableOpacity
-          style={SwitchPageContainer(forwardPageButtonActive).container}
           onPress={() => setPage(page + 1)}
-          disabled={!forwardPageButtonActive}>
+          disabled={!forwardPageButtonActive}
+          style={buttonOpacity(forwardPageButtonActive)}>
           <Ionicons name="chevron-forward" size={30} />
         </TouchableOpacity>
       </View>
