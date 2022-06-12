@@ -31,7 +31,11 @@ const PostHeader = ({ownerUserId}: PostHeaderProps) => {
           <Text style={PostHeaderStyles.userName}>{owner.name}</Text>
         </View>
       ) : (
-        <ActivityIndicator size="small" color={ColorStyles.dark} />
+        <ActivityIndicator
+          size="small"
+          color={ColorStyles.dark}
+          style={PostHeaderStyles.activityIndicator}
+        />
       )}
     </View>
   );

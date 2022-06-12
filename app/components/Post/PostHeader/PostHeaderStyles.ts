@@ -15,5 +15,8 @@ export const PostHeaderStyles = StyleSheet.create({
   },
   userName: {
     fontWeight: 'bold'
+  },
+  activityIndicator: {
+    width: '100%'
   }
 });
