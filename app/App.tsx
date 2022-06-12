@@ -19,12 +19,15 @@ import {ApplicationContext} from './context/ApplicationContext';
 import {useDispatch} from 'react-redux';
 import {AppDispatch} from './redux/store';
 import {createUser, fetchUser} from './redux/userSlice';
+import {Alert, Modal} from 'react-native';
+import Prompt from 'react-native-single-prompt';
 
 Icons.loadFont();
 
 const App = () => {
   const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [createUserVisible, setCreateUserVisible] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
 
   function toggleLoading(value: boolean): void {
@@ -38,13 +41,28 @@ const App = () => {
       if (newUser === null) return;
       dispatch(fetchUser()).then(res => {
         //If user isn't present in DB, create one
-        if (res.payload === undefined) dispatch(createUser());
+        if (res.payload === undefined) setCreateUserVisible(true);
       });
     });
   }, [dispatch]);
 
+  function submitUsername(name: string | undefined) {
+    if (!name || name.length < 3)
+      return Alert.alert('Name should have at least 3 characters');
+    dispatch(createUser(name)).then(() => setCreateUserVisible(false));
+  }
+
   return (
     <ApplicationContext.Provider value={{isLoading, toggleLoading}}>
+      {createUserVisible && (
+        <Modal>
+          <Prompt
+            name="Username"
+            callback={submitUsername}
+            exit={() => auth().signOut()}
+          />
+        </Modal>
+      )}
       {isLoading ? (
         <LoadingScreen />
       ) : (

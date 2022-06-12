@@ -52,15 +52,12 @@ export const fetchUser = createAsyncThunk('fetchUser', async () => {
   return userRef.data();
 });
 
-export const createUser = createAsyncThunk('createUser', async () => {
-  return firestore()
-    .collection(FirestoreEnum.USERS)
-    .doc(auth().currentUser?.uid)
-    .set({
-      id: auth().currentUser?.uid,
-      name: 'test',
-      posts: []
-    });
-});
+export const createUser = createAsyncThunk('createUser', async (name: string) =>
+  firestore().collection(FirestoreEnum.USERS).doc(auth().currentUser?.uid).set({
+    id: auth().currentUser?.uid,
+    name: name,
+    posts: []
+  })
+);
 
 export default userSlice.reducer;
