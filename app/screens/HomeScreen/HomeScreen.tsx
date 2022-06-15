@@ -10,13 +10,7 @@ import {HomeScreenEnum} from '../../enums/navigation/ScreenEnum';
 import auth from '@react-native-firebase/auth';
 import {getPosts} from '../../services/api/PostsAPI';
 import {IPost} from '../../interfaces/IPost';
-
-type userIdType = {
-  userId: string;
-};
-type homeScreenNavigationProp = {
-  navigate: (value: HomeScreenEnum.PROFILE, {userId}: userIdType) => void;
-};
+import {homeScreenNavigationProp} from '../../types/navigationTypes';
 
 const HomeScreen = () => {
   const {navigate} = useNavigation<homeScreenNavigationProp>();
