@@ -35,6 +35,11 @@ const HomeScreen = () => {
     refresh();
   }, [searchValue, refresh]);
 
+  const renderItem = useCallback(
+    ({item}) => <Post post={item} key={item.id} />,
+    []
+  );
+
   return (
     <SafeAreaView style={ContainerStyles.center}>
       <View style={HomeScreenStyles.header}>
@@ -53,10 +58,12 @@ const HomeScreen = () => {
       <FlatList
         data={posts}
         style={HomeScreenStyles.flatList}
-        renderItem={({item}) => <Post post={item} />}
+        renderItem={renderItem}
         refreshing={isRefreshing}
         onRefresh={refresh}
         removeClippedSubviews={true}
+        maxToRenderPerBatch={3}
+        windowSize={5}
       />
     </SafeAreaView>
   );
