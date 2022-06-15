@@ -1,10 +1,13 @@
 import React, {memo} from 'react';
-import {View} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import PostHeader from './PostHeader/PostHeader';
 import PostFooter from './PostFooter/PostFooter';
 import {PostStyles} from './PostStyles';
 import {IPost} from '../../interfaces/IPost';
 import FitImage from '../FitImage/FitImage';
+import {useNavigation} from '@react-navigation/native';
+import {homeScreenNavigationProp} from '../../types/navigationTypes';
+import {HomeScreenEnum} from '../../enums/navigation/ScreenEnum';
 
 interface PostProps {
   post: IPost;
@@ -12,11 +15,15 @@ interface PostProps {
 
 const Post = ({post}: PostProps) => {
   const {uri, ownerUserId} = post;
+  const {navigate} = useNavigation<homeScreenNavigationProp>();
 
   return (
     <View style={PostStyles.container}>
-      <PostHeader ownerUserId={ownerUserId} />
-      <FitImage uri={uri} />
+      <TouchableOpacity
+        onPress={() => navigate(HomeScreenEnum.PROFILE, {userId: ownerUserId})}>
+        <PostHeader ownerUserId={ownerUserId} />
+        <FitImage uri={uri} />
+      </TouchableOpacity>
       <PostFooter post={post} />
     </View>
   );
