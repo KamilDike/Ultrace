@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {View} from 'react-native';
-import FitImage from 'react-native-fit-image';
 import PostHeader from './PostHeader/PostHeader';
 import PostFooter from './PostFooter/PostFooter';
 import {PostStyles} from './PostStyles';
 import {IPost} from '../../interfaces/IPost';
+import FitImage from '../FitImage/FitImage';
 
 interface PostProps {
   post: IPost;
@@ -17,15 +17,18 @@ const Post = ({post}: PostProps) => {
     <View style={PostStyles.container}>
       <PostHeader ownerUserId={ownerUserId} />
       <View style={PostStyles.imageContainer}>
-        <FitImage
-          source={{
-            uri: uri
-          }}
-        />
+        <FitImage uri={uri} />
       </View>
       <PostFooter post={post} />
     </View>
   );
 };
 
-export default Post;
+function arePropsEqual(
+  {post: prevProps}: PostProps,
+  {post: nextProps}: PostProps
+) {
+  return prevProps.id === nextProps.id;
+}
+
+export default memo(Post, arePropsEqual);
