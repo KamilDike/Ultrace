@@ -30,7 +30,8 @@ const FitImage = ({uri}: FitImageProps) => {
 
   if (imageHeight === undefined)
     return (
-      <View style={ContainerStyles.center}>
+      <View
+        style={[ContainerStyles.center, FitImageStyles.initialContainerHeight]}>
         <ActivityIndicator />
       </View>
     );
@@ -38,7 +39,8 @@ const FitImage = ({uri}: FitImageProps) => {
   return imageHeight ? (
     <Image source={{uri: uri}} style={{height: imageHeight}} />
   ) : (
-    <View style={ContainerStyles.center}>
+    <View
+      style={[ContainerStyles.center, FitImageStyles.initialContainerHeight]}>
       <Ionicons name="bug-outline" size={50} style={FitImageStyles.bugIcon} />
       <Text>Ups, couldn't load photo</Text>
     </View>

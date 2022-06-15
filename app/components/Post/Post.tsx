@@ -16,9 +16,7 @@ const Post = ({post}: PostProps) => {
   return (
     <View style={PostStyles.container}>
       <PostHeader ownerUserId={ownerUserId} />
-      <View style={PostStyles.imageContainer}>
-        <FitImage uri={uri} />
-      </View>
+      <FitImage uri={uri} />
       <PostFooter post={post} />
     </View>
   );
