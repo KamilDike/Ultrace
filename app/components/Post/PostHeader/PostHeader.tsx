@@ -15,7 +15,13 @@ const PostHeader = ({ownerUserId}: PostHeaderProps) => {
   const [owner, setOwner] = useState<IUser>();
 
   useEffect(() => {
-    getUser(ownerUserId).then(setOwner);
+    let isMounted = true;
+    getUser(ownerUserId).then(user => {
+      if (isMounted) setOwner(user);
+    });
+    return () => {
+      isMounted = false;
+    };
   }, [ownerUserId]);
 
   return (
