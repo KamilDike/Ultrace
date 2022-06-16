@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Text, View} from 'react-native';
+import {Alert, Text, TouchableOpacity, View} from 'react-native';
 import {PostFooterStyles} from './PostFooterStyles';
 import {ColorStyles} from '../../../styles/ColorStyles';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -12,7 +12,7 @@ interface PostFooterProps {
 }
 
 const PostFooter = ({post}: PostFooterProps) => {
-  const {likes, name} = post;
+  const {likes, name, id: postId} = post;
   const [isLiked, setIsLiked] = useState<boolean>(
     likes.includes(auth().currentUser?.uid || '')
   );
@@ -20,21 +20,33 @@ const PostFooter = ({post}: PostFooterProps) => {
   return (
     <View style={PostFooterStyles.container}>
       {isLiked ? (
-        <Ionicons
-          name="heart-circle-outline"
-          size={25}
-          color={ColorStyles.dark}
-          style={PostFooterStyles.likeIcon}
-          onPress={() => dislikePost(post.id).then(() => setIsLiked(false))}
-        />
+        <TouchableOpacity
+          onPress={() => {
+            dislikePost(postId).catch(() =>
+              Alert.alert('Ups, network problem')
+            );
+            setIsLiked(false);
+          }}>
+          <Ionicons
+            name="heart-circle-outline"
+            size={25}
+            color={ColorStyles.dark}
+            style={PostFooterStyles.likeIcon}
+          />
+        </TouchableOpacity>
       ) : (
-        <Ionicons
-          name="heart-outline"
-          size={25}
-          color={ColorStyles.dark}
-          style={PostFooterStyles.likeIcon}
-          onPress={() => likePost(post.id).then(() => setIsLiked(true))}
-        />
+        <TouchableOpacity
+          onPress={() => {
+            likePost(postId).catch(() => Alert.alert('Ups, network error'));
+            setIsLiked(true);
+          }}>
+          <Ionicons
+            name="heart-outline"
+            size={25}
+            color={ColorStyles.dark}
+            style={PostFooterStyles.likeIcon}
+          />
+        </TouchableOpacity>
       )}
       <Text style={PostFooterStyles.postDescription}>{name}</Text>
     </View>
