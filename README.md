@@ -11,11 +11,11 @@ Disclaimer - project is in concept phase
 - [x] Google Login (iOS, Android)
 - [x] Post addition
 - [x] ProfileScreen dynamic user state
+- [x] Fullscreen photo component
+- [x] Alert prompt component
 
 ### ToDo
-- [ ] Alert prompt component
 - [ ] Apple login
-- [ ] Fullscreen photo component
 - [ ] Post deletion
 - [ ] Minimum photo quality storage rule
 - [ ] Master branch CI
