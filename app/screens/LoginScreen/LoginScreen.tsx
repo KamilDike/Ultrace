@@ -4,29 +4,28 @@ import {
   SafeAreaView,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
-import {LoginScreenStyle} from './LoginScreenStyle';
+import {LoginScreenStyles} from './LoginScreenStyles';
 import AuthButton from './AuthButton/AuthButton';
-import {AuthEnum} from '../../../enums/auth.enum';
-import {ContainerStyles} from '../../../styles/ContainerStyles';
-import {isAndroid} from '../../../hooks/isAndroid';
-import {TextStyles} from '../../../styles/TextStyles';
+import {ContainerStyles} from '../../styles/ContainerStyles';
+import {TextStyles} from '../../styles/TextStyles';
+import auth from '@react-native-firebase/auth';
+import {SocialLogoEnum} from '../../enums/AuthEnum';
 
 const LoginScreen: React.FC = () => {
   return (
     <ImageBackground
-      source={require('../../../assets/loginBackground.jpg')}
-      style={LoginScreenStyle.backgroundImage}>
+      source={require('../../assets/loginBackground.jpg')}
+      style={LoginScreenStyles.backgroundImage}>
       <SafeAreaView style={ContainerStyles.center}>
-        <View style={LoginScreenStyle.appNameContainer}>
-          <Text style={LoginScreenStyle.appNameText}>Ultrace</Text>
+        <View style={LoginScreenStyles.appNameContainer}>
+          <Text style={LoginScreenStyles.appNameText}>Ultrace</Text>
         </View>
-        <View style={LoginScreenStyle.buttonsContainer}>
-          <AuthButton
-            provider={isAndroid() ? AuthEnum.GOOGLE : AuthEnum.APPLE}
-          />
-          <TouchableOpacity>
+        <View style={LoginScreenStyles.buttonsContainer}>
+          <AuthButton provider={SocialLogoEnum.GOOGLE} />
+          <AuthButton provider={SocialLogoEnum.APPLE} />
+          <TouchableOpacity onPress={() => auth().signInAnonymously()}>
             <Text style={[TextStyles.title, TextStyles.whiteColor]}>
               Continue as guest
             </Text>
