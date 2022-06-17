@@ -60,6 +60,21 @@ const ProfileScreen = ({
     })();
   }, [profilePictureUri, reload, userId]);
 
+  async function changeProfilePicture() {
+    try {
+      const {uri} = await selectImage();
+      setProfilePicture(undefined);
+      const {
+        metadata: {fullPath}
+      } = await storageUpload(profilePictureUri, uri);
+      const profilePictureLink = await storage().ref(fullPath).getDownloadURL();
+      await updateProfilePicture(profilePictureLink);
+      setReload(!reload);
+    } catch (e) {
+      Alert.alert("Ups, couldn't change profile photo");
+    }
+  }
+
   return (
     <View style={ContainerStyles.center}>
       <View style={ProfileScreenStyles.profileScreenHeader}>
@@ -68,26 +83,7 @@ const ProfileScreen = ({
             style={ProfileScreenStyles.profilePictureLoading}
           />
         ) : (
-          <TouchableOpacity
-            onPress={() =>
-              selectImage()
-                .then(({uri}) => {
-                  setProfilePicture(undefined);
-                  storageUpload(profilePictureUri, uri)?.then(
-                    ({metadata: {fullPath}}) => {
-                      storage()
-                        .ref(fullPath)
-                        .getDownloadURL()
-                        .then(profilePictureLink => {
-                          updateProfilePicture(profilePictureLink).then(() =>
-                            setReload(!reload)
-                          );
-                        });
-                    }
-                  );
-                })
-                .catch(error => Alert.alert(error))
-            }>
+          <TouchableOpacity onPress={changeProfilePicture}>
             <UserPicture size={120} uri={profilePicture} />
           </TouchableOpacity>
         )}

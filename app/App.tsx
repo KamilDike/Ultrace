@@ -54,7 +54,7 @@ const App = () => {
 
   return (
     <ApplicationContext.Provider value={{isLoading, toggleLoading}}>
-      {createUserVisible && (
+      {createUserVisible && auth().currentUser?.isAnonymous === false && (
         <Modal>
           <Prompt
             name="Username"

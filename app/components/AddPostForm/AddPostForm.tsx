@@ -48,7 +48,6 @@ const AddPostForm = ({exit, postUri}: AddPostFormProps) => {
     } catch (err) {
       if (typeof err === 'string') Alert.alert(err);
       else Alert.alert('Ups, something went wrong');
-      setLoading(false);
     }
   }
 

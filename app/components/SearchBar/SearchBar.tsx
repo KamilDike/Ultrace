@@ -12,7 +12,6 @@ const SearchBar = ({search}: SearchBarProps) => {
     <View style={SearchBarStyles.container}>
       <Ionicons name="search-outline" style={SearchBarStyles.searchIcon} />
       <TextInput
-        placeholder="bmw e30"
         style={SearchBarStyles.searchInput}
         onEndEditing={({nativeEvent: {text}}) => search(text)}
       />

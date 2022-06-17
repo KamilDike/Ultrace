@@ -8,7 +8,9 @@ export async function getPosts(
   owner: boolean = false
 ) {
   const posts: Array<IPost> = [];
-  const postsQuery = firestore().collection(FirestoreEnum.POSTS);
+  const postsQuery = firestore()
+    .collection(FirestoreEnum.POSTS)
+    .orderBy('creationDate', 'desc');
   if (owner) postsQuery.where('ownerUserId', '==', auth().currentUser?.uid);
   if (searchValue) postsQuery.where('tags', 'array-contains', searchValue);
 
@@ -35,10 +37,10 @@ export async function dislikePost(postId: string) {
     });
 }
 
-export async function addPost(post: IPost) {
-  return firestore().collection(FirestoreEnum.POSTS).add(post);
-}
-
-export async function getPost(postId: string) {
-  return firestore().collection(FirestoreEnum.POSTS).doc(postId);
-}
+// export async function addPost(post: IPost) {
+//   return firestore().collection(FirestoreEnum.POSTS).add(post);
+// }
+//
+// export async function getPost(postId: string) {
+//   return firestore().collection(FirestoreEnum.POSTS).doc(postId);
+// }

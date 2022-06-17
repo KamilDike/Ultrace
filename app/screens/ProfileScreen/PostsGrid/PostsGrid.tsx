@@ -6,6 +6,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {ContainerStyles} from '../../../styles/ContainerStyles';
 import AddPostForm from '../../../components/AddPostForm/AddPostForm';
 import {selectImage} from '../../../hooks/selectImage';
+import ImageModal from '../ImageModal/ImageModal';
 
 interface PostsGridInterface {
   posts: Array<IPost>;
@@ -14,6 +15,7 @@ interface PostsGridInterface {
 const PostsGrid = ({posts}: PostsGridInterface) => {
   const [page, setPage] = useState(0);
   const [postUri, setPostUri] = useState<string>();
+  const [selectedImage, setSelectedImage] = useState<string>();
 
   const currentUrisIndex = 8 * page;
   const urisLength = page ? 9 : 8;
@@ -32,6 +34,13 @@ const PostsGrid = ({posts}: PostsGridInterface) => {
         <AddPostForm exit={() => setPostUri(undefined)} postUri={postUri!} />
       </Modal>
 
+      <Modal visible={!!selectedImage}>
+        <ImageModal
+          imageUri={selectedImage!}
+          exit={() => setSelectedImage(undefined)}
+        />
+      </Modal>
+
       <View
         style={[PostsGridStyles.postsContainer, ContainerStyles.basicShadow]}>
         {page === 0 && (
@@ -47,7 +56,7 @@ const PostsGrid = ({posts}: PostsGridInterface) => {
           </TouchableOpacity>
         )}
         {currentUris.map(({uri}, index) => (
-          <TouchableOpacity key={index}>
+          <TouchableOpacity key={index} onPress={() => setSelectedImage(uri)}>
             <Image source={{uri: uri}} style={PostsGridStyles.postContainer} />
           </TouchableOpacity>
         ))}

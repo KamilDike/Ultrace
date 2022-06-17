@@ -1,16 +1,16 @@
 import React, {useContext} from 'react';
-import {Text, TouchableOpacity} from 'react-native';
+import {Alert, Text, TouchableOpacity} from 'react-native';
 import {SocialLogoEnum} from '../../../enums/AuthEnum';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {AuthButtonStyle} from './AuthButtonStyle';
 import {ColorStyles} from '../../../styles/ColorStyles';
 import {TextStyles} from '../../../styles/TextStyles';
-import {onGoogleButtonPress} from '../../../services/firebaseSignIn';
 import {
   ApplicationContext,
   ApplicationContextType
 } from '../../../context/ApplicationContext';
 import auth from '@react-native-firebase/auth';
+import {onGoogleButtonPress} from '../../../services/firebaseSignIn';
 
 interface AuthButtonProps {
   provider: SocialLogoEnum;
@@ -21,17 +21,21 @@ const AuthButton: React.FC<AuthButtonProps> = ({provider}) => {
     ApplicationContext
   ) as ApplicationContextType;
 
+  function providerLiteral() {
+    if (provider === SocialLogoEnum.APPLE) Alert.alert('Not yet supported');
+    else if (provider === SocialLogoEnum.GOOGLE)
+      onGoogleButtonPress().then(googleCredential => {
+        toggleLoading(true);
+        auth()
+          .signInWithCredential(googleCredential)
+          .then(() => toggleLoading(false));
+      });
+  }
+
   return (
     <TouchableOpacity
       style={AuthButtonStyle.container}
-      onPress={() =>
-        onGoogleButtonPress().then(googleCredential => {
-          toggleLoading(true);
-          auth()
-            .signInWithCredential(googleCredential)
-            .then(() => toggleLoading(false));
-        })
-      }>
+      onPress={providerLiteral}>
       <Ionicons
         name={`logo-${provider.toLowerCase()}`}
         size={25}

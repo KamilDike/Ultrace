@@ -8,6 +8,7 @@ import FitImage from '../FitImage/FitImage';
 import {useNavigation} from '@react-navigation/native';
 import {homeScreenNavigationProp} from '../../types/navigationTypes';
 import {HomeScreenEnum} from '../../enums/navigation/ScreenEnum';
+import auth from '@react-native-firebase/auth';
 
 interface PostProps {
   post: IPost;
@@ -20,7 +21,12 @@ const Post = ({post}: PostProps) => {
   return (
     <View style={PostStyles.container}>
       <TouchableOpacity
-        onPress={() => navigate(HomeScreenEnum.PROFILE, {userId: ownerUserId})}>
+        activeOpacity={0.9}
+        onPress={() =>
+          auth().currentUser?.isAnonymous
+            ? auth().signOut()
+            : navigate(HomeScreenEnum.PROFILE, {userId: ownerUserId})
+        }>
         <PostHeader ownerUserId={ownerUserId} />
         <FitImage uri={uri} />
       </TouchableOpacity>
